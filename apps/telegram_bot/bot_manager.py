@@ -51,6 +51,24 @@ class TelegramBotManager:
         # Регистрируем обработчики
         self._register_handlers()
     
+    def set_webhook(self, webhook_url: str) -> bool:
+        """Установка webhook для бота"""
+        try:
+            self.updater.bot.set_webhook(url=webhook_url)
+            logger.info(f"Webhook установлен: {webhook_url}")
+            return True
+        except Exception as e:
+            logger.error(f"Ошибка установки webhook: {e}")
+            return False
+    
+    def process_webhook_update(self, update_data: dict):
+        """Обработка обновления от webhook"""
+        try:
+            update = Update.de_json(update_data, self.updater.bot)
+            self.dispatcher.process_update(update)
+        except Exception as e:
+            logger.error(f"Ошибка обработки webhook update: {e}")
+    
     def _delete_previous_messages(self, update: Update, context: CallbackContext):
         """Удаляет предыдущие сообщения бота и команды пользователя для данного пользователя"""
         user_id = update.effective_user.id

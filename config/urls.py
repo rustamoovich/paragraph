@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from django.http import JsonResponse
+from apps.telegram_bot.webhook_views import telegram_webhook, set_webhook
 
 def file_json_view(request):
     """Обработчик для file.json запросов"""
@@ -27,5 +28,7 @@ urlpatterns = [
     path('users/', include('apps.users.urls')),
     path('dashboard/', TemplateView.as_view(template_name='users/dashboard.html'), name='dashboard_redirect'),
     path('file.json', file_json_view, name='file_json'),
+    path('telegram/webhook/', telegram_webhook, name='telegram_webhook'),
+    path('telegram/set-webhook/', set_webhook, name='set_webhook'),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
 ]

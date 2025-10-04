@@ -22,4 +22,41 @@ SECURE_HSTS_SECONDS = int(os.getenv("SECURE_HSTS_SECONDS", "31536000"))
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Database (если нужно переопределить для продакшена)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': os.getenv('DB_NAME', 'paragraph'),
+#         'CLIENT': {
+#             'host': os.getenv('DB_HOST', 'mongodb://localhost:27017/'),
+#             'username': os.getenv('DB_USER', ''),
+#             'password': os.getenv('DB_PASSWORD', ''),
+#         }
+#     }
+# }
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': '/app/logs/django.log',
+        },
+    },
+    'root': {
+        'handlers': ['file'],
+    },
+}
+
 

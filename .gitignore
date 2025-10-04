@@ -76,3 +76,6 @@ htmlcov/
 
 # Commit message
 commit_message.txt
+
+# Heroku
+setup_heroku_env.sh
