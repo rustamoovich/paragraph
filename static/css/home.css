@@ -1,0 +1,291 @@
+/* Home page styles */
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin-top: 10vh;
+}
+
+.hero-content {
+    min-height: 85vh;
+}
+
+/* Status Panel */
+.status-panel {
+    padding: 0;
+    max-width: fit-content;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 0.1rem 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.status-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.status-item i {
+    font-size: 1.2rem;
+}
+
+.min-vh-50 {
+    min-height: 50vh;
+}
+
+/* Service Cards */
+.services-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.service-icon {
+    transition: transform 0.3s ease;
+}
+
+.service-icon-large {
+    font-size: 3rem;
+}
+
+.card:hover .service-icon {
+    transform: scale(1.1);
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Feature Icons */
+.feature-icon {
+    transition: transform 0.3s ease;
+}
+
+.feature-icon-large {
+    font-size: 2.5rem;
+}
+
+.feature-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Step Numbers */
+.step-number .badge {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.how-it-works-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.step-badge {
+    font-size: 1.5rem;
+}
+
+.step-icon-large {
+    font-size: 4rem;
+    display: block;
+}
+
+.feature-image {
+    padding: 1rem;
+}
+
+/* CTA Section */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Pricing Section */
+.pricing-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+/* Pricing Cards */
+.pricing-card {
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.pricing-card-popular {
+    background: linear-gradient(145deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform: scale(1.05);
+    z-index: 2;
+    min-height: 450px;
+}
+
+.pricing-card-popular:hover {
+    transform: scale(1.05) translateY(-10px);
+}
+
+.pricing-card-popular .card-title,
+.pricing-card-popular .pricing-price span,
+.pricing-card-popular .pricing-features li {
+    color: white !important;
+}
+
+.pricing-card-popular .pricing-features li i {
+    color: #ffd700 !important;
+}
+
+/* Pricing Icons */
+.pricing-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.pricing-icon i {
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Pricing Badge */
+.pricing-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+.pricing-badge .badge {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #ff6b6b, #ffd93d) !important;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* Pricing Price */
+.pricing-price {
+    margin-bottom: 1rem;
+}
+
+.pricing-price span:first-child {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.pricing-card-popular .pricing-price span:first-child {
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Pricing Features */
+.pricing-features {
+    text-align: center;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.pricing-features li {
+    transition: all 0.2s ease;
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.pricing-features li:hover {
+    transform: translateX(5px);
+    color: #667eea !important;
+}
+
+.pricing-features li i {
+    font-size: 1.1rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Pricing Buttons */
+.pricing-btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    margin: 0 auto;
+}
+
+.card.border-primary {
+    border-width: 2px !important;
+}
+
+.card.border-primary .card-header {
+    border-bottom: 1px solid rgba(13, 110, 253, 0.125);
+}
+
+/* Telegram Icon */
+.telegram-icon-large {
+    font-size: 5rem;
+}
+
+.telegram-icon {
+    font-size: 2rem;
+}

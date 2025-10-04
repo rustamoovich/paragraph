@@ -73,3 +73,6 @@ Thumbs.db
 .coverage.*
 htmlcov/
 .pytest_cache/
+
+# Commit message
+commit_message.txt

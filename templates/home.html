@@ -1,0 +1,451 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная — Paragraph{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-white">
+    <div class="container">
+        <div class="row align-items-center hero-content">
+            <div class="col-lg-6 ps-5">
+                <h1 class="display-4 fw-bold mb-4">
+                    Генерируйте документы с помощью ИИ
+                </h1>
+                <p class="lead mb-4">
+                    Создавайте рефераты, курсовые работы, презентации и другие документы
+                    за считанные минуты с помощью передовых языковых моделей
+                </p>
+                <div class="d-flex gap-3">
+                    {% if request.user.is_authenticated %}
+                    <a href="/dashboard/" class="btn btn-warning btn-lg px-4">
+                        <i class="bi bi-person-circle me-2"></i>Личный кабинет
+                    </a>
+                    <a href="/dashboard/" class="btn btn-outline-light btn-lg px-4">
+                        <i class="bi bi-file-earmark-plus me-2"></i>Создать документ
+                    </a>
+                    {% else %}
+                    <a href="/users/login/" class="btn btn-warning btn-lg px-4">
+                        <i class="bi bi-rocket-takeoff me-2"></i>Начать работу
+                    </a>
+                    <a href="#how-it-works" class="btn btn-outline-light btn-lg px-4">
+                        <i class="bi bi-play-circle me-2"></i>Как это работает
+                    </a>
+                    {% endif %}
+                </div>
+
+                <!-- Панель статуса -->
+                <div class="status-panel mt-5">
+                    <div class="d-flex gap-4 flex-wrap">
+                        <div class="status-item">
+                            <i class="bi bi-lightning-charge text-warning me-2"></i>
+                            <span class="text-white-50">Быстро</span>
+                        </div>
+                        <div class="status-item">
+                            <i class="bi bi-shield-check text-success me-2"></i>
+                            <span class="text-white-50">Качественно</span>
+                        </div>
+                        <div class="status-item">
+                            <i class="bi bi-gear text-primary me-2"></i>
+                            <span class="text-white-50">Настраиваемо</span>
+                        </div>
+                        <div class="status-item">
+                            <i class="bi bi-clock text-info me-2"></i>
+                            <span class="text-white-50">24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <i class="bi bi-file-earmark-text telegram-icon-large text-warning"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="py-5 services-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Услуги</h2>
+            <p class="lead text-muted">Выберите нужную услугу для генерации документов</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-file-text service-icon-large text-primary mb-3"></i>
+                        <h5 class="card-title">Рефераты</h5>
+                        <p class="card-text text-muted">
+                            Академические рефераты по любой теме с правильным оформлением и структурой
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-mortarboard service-icon-large text-success mb-3"></i>
+                        <h5 class="card-title">Курсовые работы</h5>
+                        <p class="card-text text-muted">
+                            Полноценные курсовые работы с введением, основной частью и заключением
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-file-earmark-slides service-icon-large text-info mb-3"></i>
+                        <h5 class="card-title">Презентации</h5>
+                        <p class="card-text text-muted">
+                            Профессиональные презентации с слайдами и заметками для выступления
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-graph-up service-icon-large text-warning mb-3"></i>
+                        <h5 class="card-title">Отчеты</h5>
+                        <p class="card-text text-muted">
+                            Детальные отчеты с анализом данных, графиками и выводами
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-journal-text service-icon-large text-danger mb-3"></i>
+                        <h5 class="card-title">Эссе</h5>
+                        <p class="card-text text-muted">
+                            Литературные эссе с аргументацией и авторской позицией
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-file-earmark-code service-icon-large text-secondary mb-3"></i>
+                        <h5 class="card-title">Техническая документация</h5>
+                        <p class="card-text text-muted">
+                            Технические спецификации, руководства и документация по проектам
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Преимущества платформы</h2>
+            <p class="lead text-muted">Почему выбирают именно нас</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <i class="bi bi-lightning-charge feature-icon-large text-warning"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5>Быстрая генерация</h5>
+                        <p class="text-muted mb-0">
+                            Получайте готовые документы за считанные минуты вместо часов работы
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <i class="bi bi-shield-check feature-icon-large text-success"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5>Высокое качество</h5>
+                        <p class="text-muted mb-0">
+                            Используем передовые языковые модели для создания качественного контента
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <i class="bi bi-palette feature-icon-large text-primary"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5>Гибкая настройка</h5>
+                        <p class="text-muted mb-0">
+                            Настраивайте параметры генерации под свои конкретные требования
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <i class="bi bi-download feature-icon-large text-info"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5>Множество форматов</h5>
+                        <p class="text-muted mb-0">
+                            Экспортируйте документы в PDF, Word, PowerPoint и других форматах
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <i class="bi bi-people feature-icon-large text-danger"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5>Для всех уровней</h5>
+                        <p class="text-muted mb-0">
+                            Подходит для студентов, преподавателей, исследователей и профессионалов
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <i class="bi bi-clock feature-icon-large text-secondary"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5>Круглосуточная работа</h5>
+                        <p class="text-muted mb-0">
+                            Генерируйте документы в любое время дня и ночи без ограничений
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="py-5 how-it-works-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Как это работает</h2>
+            <p class="lead text-muted">Простой процесс создания документов</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="step-number mb-4">
+                        <span class="badge bg-primary step-badge">1</span>
+                    </div>
+                    <div class="step-image mb-4">
+                        <i class="bi bi-list-ul step-icon-large text-primary"></i>
+                    </div>
+                    <h5 class="mb-3">Выберите тип документа</h5>
+                    <p class="text-muted">
+                        Выберите нужный тип документа из доступных вариантов: рефераты, курсовые работы, презентации и
+                        другие
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="step-number mb-4">
+                        <span class="badge bg-primary step-badge">2</span>
+                    </div>
+                    <div class="step-image mb-4">
+                        <i class="bi bi-pencil-square step-icon-large text-success"></i>
+                    </div>
+                    <h5 class="mb-3">Заполните параметры</h5>
+                    <p class="text-muted">
+                        Укажите тему, объем, стиль и другие параметры документа для точной настройки результата
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="step-number mb-4">
+                        <span class="badge bg-primary step-badge">3</span>
+                    </div>
+                    <div class="step-image mb-4">
+                        <i class="bi bi-download step-icon-large text-warning"></i>
+                    </div>
+                    <h5 class="mb-3">Получите результат</h5>
+                    <p class="text-muted">
+                        Скачайте готовый документ в нужном формате: PDF, Word, PowerPoint или других
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section id="pricing" class="py-5 bg-light pricing-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Тарифы</h2>
+            <p class="lead text-muted">Выберите подходящий план</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-4 col-md-6">
+                <div class="pricing-card card h-100 border-0 shadow-lg">
+                    <div class="card-body text-center p-2 d-flex flex-column">
+                        <div class="pricing-icon mb-3">
+                            <i class="bi bi-star text-warning"></i>
+                        </div>
+                        <h6 class="card-title fw-bold">Базовый</h6>
+                        <div class="pricing-price mb-5">
+                            <span class="h3 fw-bold text-primary">50 000</span>
+                            <span class="h6 text-muted"> сум/месяц</span>
+                        </div>
+                        <ul class="list-unstyled flex-grow-1 pricing-features">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>5 документов в
+                                месяц</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Базовые шаблоны
+                            </li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Экспорт в PDF</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Поддержка по email
+                            </li>
+                        </ul>
+                        <a href="/users/login/" class="btn btn-outline-primary btn-lg w-75 mt-auto pricing-btn">Начать
+                            бесплатно</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="pricing-card pricing-card-popular card h-100 border-0 shadow-lg">
+                    <div class="card-body text-center p-3 d-flex flex-column">
+                        <div class="pricing-badge">
+                            <span class="badge bg-gradient-primary">Популярный</span>
+                        </div>
+                        <div class="pricing-icon mb-3">
+                            <i class="bi bi-crown text-warning"></i>
+                        </div>
+                        <h6 class="card-title fw-bold">Стандартный</h6>
+                        <div class="pricing-price mb-4">
+                            <span class="h3 fw-bold text-primary">80 000</span>
+                            <span class="h6 text-muted"> сум/месяц</span>
+                        </div>
+                        <ul class="list-unstyled flex-grow-1 pricing-features">
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>100 документов в
+                                месяц</li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Все шаблоны</li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Все форматы
+                                экспорта</li>
+                            <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Приоритетная
+                                поддержка</li>
+                        </ul>
+                        <a href="/users/login/" class="btn btn-primary btn-lg w-75 mt-auto pricing-btn">Выбрать
+                            план</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="pricing-card card h-100 border-0 shadow-lg">
+                    <div class="card-body text-center p-2 d-flex flex-column">
+                        <div class="pricing-icon mb-3">
+                            <i class="bi bi-gem text-primary"></i>
+                        </div>
+                        <h6 class="card-title fw-bold">Профессиональный</h6>
+                        <div class="pricing-price mb-5">
+                            <span class="h3 fw-bold text-primary">100 000</span>
+                            <span class="h6 text-muted"> сум/месяц</span>
+                        </div>
+                        <ul class="list-unstyled flex-grow-1 pricing-features">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Безлимитные
+                                документы</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Кастомные шаблоны
+                            </li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Все форматы
+                                экспорта</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Персональный
+                                менеджер</li>
+                        </ul>
+                        <a href="/contacts/" class="btn btn-outline-primary btn-lg w-75 mt-auto pricing-btn">Связаться
+                            с нами</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Telegram Bot Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-6 fw-bold mb-4">Telegram бот</h2>
+                <p class="lead mb-4">
+                    Получайте коды для входа в систему через наш удобный Telegram бот
+                </p>
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-telegram text-primary me-3 telegram-icon"></i>
+                    <div>
+                        <h5 class="mb-1">@paragraph_uzbot</h5>
+                        <p class="text-muted mb-0">Быстрый и безопасный вход</p>
+                    </div>
+                </div>
+                <a href="https://t.me/paragraph_uzbot" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+                    <i class="bi bi-telegram me-2"></i>Открыть бота
+                </a>
+            </div>
+            <div class="col-lg-6 text-center">
+                <i class="bi bi-robot telegram-icon-large text-primary"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        {% if request.user.is_authenticated %}
+        <h2 class="display-6 fw-bold mb-4">Создайте свой первый документ!</h2>
+        <p class="lead mb-4">
+            Добро пожаловать в Paragraph! Начните создавать документы с помощью ИИ прямо сейчас
+        </p>
+        <a href="/dashboard/" class="btn btn-warning btn-lg px-5">
+            <i class="bi bi-file-earmark-plus me-2"></i>Создать документ
+        </a>
+        {% else %}
+        <h2 class="display-6 fw-bold mb-4">Готовы начать?</h2>
+        <p class="lead mb-4">
+            Присоединяйтесь к тысячам пользователей, которые уже экономят время с помощью ИИ
+        </p>
+        <a href="/users/login/" class="btn btn-warning btn-lg px-5">
+            <i class="bi bi-rocket-takeoff me-2"></i>Начать бесплатно
+        </a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

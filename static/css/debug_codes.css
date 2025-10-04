@@ -1,0 +1,228 @@
+/* Стили для страницы отладки OTP кодов */
+
+/* Основные стили для таблиц */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-sm th,
+.table-sm td {
+    padding: 0.3rem;
+}
+
+/* Стили для карточек статистики */
+.card {
+    border-radius: 0.375rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.375rem 0.375rem 0 0 !important;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+/* Стили для бейджей статусов */
+.badge {
+    font-size: 0.75em;
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    border-radius: 0.375rem;
+}
+
+.badge.bg-primary {
+    background-color: #0d6efd !important;
+}
+
+.badge.bg-success {
+    background-color: #198754 !important;
+}
+
+.badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+.badge.bg-secondary {
+    background-color: #6c757d !important;
+}
+
+/* Стили для кнопок */
+.btn {
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 0.15s ease-in-out;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.btn-outline-light {
+    color: #f8f9fa;
+    border-color: #f8f9fa;
+}
+
+.btn-outline-light:hover {
+    color: #000;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+}
+
+/* Стили для иконок */
+/* .bi {
+    font-size: 1rem;
+} */
+
+.bi-arrow-clockwise {
+    animation: none;
+}
+
+/* Стили для текста */
+.text-muted {
+    color: #6c757d !important;
+}
+
+.text-success {
+    color: #198754 !important;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+.text-info {
+    color: #0dcaf0 !important;
+}
+
+/* Стили для заголовков */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+/* Стили для алертов */
+.alert {
+    border-radius: 0.375rem;
+    border: 1px solid transparent;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert-info {
+    color: #055160;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+/* Стили для кода */
+code {
+    font-size: 0.875em;
+    color: #e83e8c;
+    background-color: #f8f9fa;
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+}
+
+/* Стили для списков */
+ol,
+ul {
+    padding-left: 1.5rem;
+}
+
+ol li,
+ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Стили для спиннера */
+.spinner-border {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: text-bottom;
+    border: 0.25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
+}
+
+@keyframes spinner-border {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Стили для пустых состояний */
+.text-center {
+    text-align: center !important;
+}
+
+.py-4 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+}
+
+/* Стили для отзывчивости */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .card-body {
+        padding: 0.75rem;
+    }
+
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+}
+
+/* Стили для темной темы (если понадобится) */
+@media (prefers-color-scheme: dark) {
+    .card {
+        background-color: #212529;
+        border-color: #495057;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .text-muted {
+        color: #adb5bd !important;
+    }
+}
+

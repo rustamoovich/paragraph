@@ -1,0 +1,73 @@
+/* Стили для страницы логина */
+.login-content {
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Стили для полей ввода кода */
+.code-input {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    font-size: 1.5rem;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.code-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    outline: none;
+}
+
+.code-input:disabled {
+    background-color: #f8f9fa;
+    border-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+.code-input:not(:focus) {
+    caret-color: transparent;
+}
+
+.code-input:focus:not(:placeholder-shown) {
+    caret-color: transparent;
+}
+
+/* Анимация для полей */
+.code-input:focus {
+    transform: scale(1.05);
+}
+
+.code-input:not(:focus) {
+    transform: scale(1);
+}
+
+/* Стили для контейнера полей */
+.code-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .login-page-container {
+        padding-top: 100px;
+        /* Больший отступ для мобильных */
+    }
+}
+
+@media (max-width: 576px) {
+    .code-input {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .code-container {
+        gap: 0.25rem;
+    }
+}

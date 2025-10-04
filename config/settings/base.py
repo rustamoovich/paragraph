@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "apps.users",
     "apps.orders",
     "apps.payments",
+    "apps.telegram_bot",
 ]
 
 
@@ -109,10 +110,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Локализация
 LANGUAGE_CODE = "ru-ru"
-TIME_ZONE = os.getenv("TIME_ZONE", "UTC")
+TIME_ZONE = os.getenv("TIME_ZONE", "Asia/Tashkent")
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+# Форматы даты и времени для локализации
+DATE_FORMAT = "d.m.Y"
+DATETIME_FORMAT = "d.m.Y H:i:s"
+TIME_FORMAT = "H:i:s"
 
 
 # Статика и медиа
@@ -139,4 +145,9 @@ LOGGING = {
     },
 }
 
+
+# Настройки Telegram/OTP
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+LOGIN_REDIRECT_URL = os.getenv("LOGIN_REDIRECT_URL", "/")
+LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/")
 

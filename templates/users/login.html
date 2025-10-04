@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Вход — Paragraph{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'css/login.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block footer %}
+<!-- Футер скрыт на странице логина -->
+{% endblock %}
+
+{% block content %}
+
+<div class="login-page-container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="login-content text-center">
+        <div class="mb-5">
+            <h1 class="display-4 mb-4">Вход в личный кабинет</h1>
+            <p class="lead text-muted">
+                Перейдите в <a href="https://t.me/paragraph_uzbot" target="_blank" rel="noopener"
+                    class="text-decoration-underline">@paragraph_uzbot</a>
+                Telegram бот и получите ваш код для входа.
+            </p>
+        </div>
+
+        <form id="code-form" class="mb-4">
+            <div class="code-container">
+                <input type="text" class="form-control code-input" maxlength="1" pattern="[0-9]" title="" placeholder=""
+                    required aria-label="Первая цифра кода" data-index="0">
+                <input type="text" class="form-control code-input" maxlength="1" pattern="[0-9]" title="" placeholder=""
+                    required aria-label="Вторая цифра кода" data-index="1" disabled>
+                <input type="text" class="form-control code-input" maxlength="1" pattern="[0-9]" title="" placeholder=""
+                    required aria-label="Третья цифра кода" data-index="2" disabled>
+                <input type="text" class="form-control code-input" maxlength="1" pattern="[0-9]" title="" placeholder=""
+                    required aria-label="Четвертая цифра кода" data-index="3" disabled>
+                <input type="text" class="form-control code-input" maxlength="1" pattern="[0-9]" title="" placeholder=""
+                    required aria-label="Пятая цифра кода" data-index="4" disabled>
+                <input type="text" class="form-control code-input" maxlength="1" pattern="[0-9]" title="" placeholder=""
+                    required aria-label="Шестая цифра кода" data-index="5" disabled>
+            </div>
+            <div class="text-center mt-3">
+                <small class="text-muted">
+                    <i class="bi bi-magic me-1"></i>
+                    Введите все 6 цифр для автоматического входа
+                </small>
+                <div class="mt-2">
+                    <div class="spinner-border spinner-border-sm text-primary d-none" id="loading-spinner"
+                        role="status">
+                        <span class="visually-hidden">Проверяем...</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="alert d-none" id="alert-box"></div>
+
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputs = document.querySelectorAll('.code-input');
+        const form = document.getElementById('code-form');
+        const alertBox = document.getElementById('alert-box');
+
+        // Функция для включения/отключения полей
+        function updateFieldStates() {
+            inputs.forEach((input, index) => {
+                if (index === 0) {
+                    input.disabled = false;
+                } else {
+                    input.disabled = !inputs[index - 1].value;
+                }
+            });
+        }
+
+        // Функция для проверки, можно ли удалить цифру из поля
+        function canDeleteFromField(index) {
+            // Если это последнее поле или справа нет заполненных полей
+            for (let i = index + 1; i < inputs.length; i++) {
+                if (inputs[i].value) {
+                    return false; // Справа есть заполненные поля
+                }
+            }
+            return true; // Можно удалять
+        }
+
+        // Автоматический переход к следующему полю и управление состоянием
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', function (e) {
+                // Разрешаем только цифры 0-9
+                if (e.target.value && !/^[0-9]$/.test(e.target.value)) {
+                    e.target.value = '';
+                    return;
+                }
+
+                // Устанавливаем курсор в конец после ввода цифры
+                if (e.target.value) {
+                    setTimeout(() => {
+                        e.target.setSelectionRange(1, 1);
+                    }, 0);
+                }
+
+                if (e.target.value && index < inputs.length - 1) {
+                    inputs[index + 1].disabled = false;
+                    inputs[index + 1].focus();
+                }
+                updateFieldStates();
+
+                // Проверяем, заполнены ли все поля
+                const allFilled = Array.from(inputs).every(input => input.value);
+                if (allFilled) {
+                    // Автоматически отправляем форму
+                    setTimeout(() => {
+                        submitForm();
+                    }, 300); // Небольшая задержка для лучшего UX
+                }
+            });
+
+            // Блокируем ввод нецифровых символов
+            input.addEventListener('keypress', function (e) {
+                if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                    e.preventDefault();
+                }
+            });
+
+            // Обработка вставки из буфера обмена
+            input.addEventListener('paste', function (e) {
+                e.preventDefault();
+                const pastedData = (e.clipboardData || window.clipboardData).getData('text');
+
+                // Проверяем, что вставленные данные содержат только цифры и их ровно 6
+                if (/^[0-9]{6}$/.test(pastedData)) {
+                    // Распределяем цифры по полям
+                    const digits = pastedData.split('');
+                    inputs.forEach((field, index) => {
+                        if (index < digits.length) {
+                            field.value = digits[index];
+                        }
+                    });
+
+                    // Включаем все поля и устанавливаем фокус на последнее
+                    inputs.forEach(field => field.disabled = false);
+                    inputs[inputs.length - 1].focus();
+                    inputs[inputs.length - 1].setSelectionRange(1, 1);
+
+                    // Автоматически отправляем форму после вставки
+                    setTimeout(() => {
+                        submitForm();
+                    }, 300);
+                } else {
+                    // Если данные не подходят - показываем ошибку
+                    alertBox.className = 'alert alert-warning';
+                    alertBox.textContent = 'Вставьте ровно 6 цифр';
+                    alertBox.classList.remove('d-none');
+                    setTimeout(() => {
+                        alertBox.classList.add('d-none');
+                    }, 3000);
+                }
+            });
+
+            input.addEventListener('keydown', function (e) {
+                if (e.key === 'Backspace') {
+                    if (!e.target.value && index > 0) {
+                        // Если поле пустое - переходим к предыдущему
+                        input.disabled = true;
+                        inputs[index - 1].focus();
+                        updateFieldStates();
+                    } else if (e.target.value && !canDeleteFromField(index)) {
+                        // Если в поле есть цифра, но справа есть заполненные поля - блокируем удаление
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+            });
+
+            // Устанавливаем курсор в конец при фокусе на заполненном поле
+            input.addEventListener('focus', function (e) {
+                if (e.target.value) {
+                    setTimeout(() => {
+                        e.target.setSelectionRange(1, 1);
+                    }, 0);
+                }
+            });
+        });
+
+        // Функция для отправки формы
+        async function submitForm() {
+            const code = Array.from(inputs).map(input => input.value).join('');
+            if (code.length !== 6) {
+                alertBox.className = 'alert alert-danger';
+                alertBox.textContent = 'Введите все 6 цифр кода';
+                alertBox.classList.remove('d-none');
+                return;
+            }
+
+            // Показываем спиннер и блокируем поля
+            const spinner = document.getElementById('loading-spinner');
+            spinner.classList.remove('d-none');
+            inputs.forEach(input => input.disabled = true);
+
+            // Показываем индикатор загрузки
+            alertBox.className = 'alert alert-info';
+            alertBox.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Проверяем код...';
+            alertBox.classList.remove('d-none');
+
+            try {
+                console.log('🔍 Отправляем код:', code);
+
+                const resp = await fetch('/users/auth/verify_code/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `code=${code}`
+                });
+                const data = await resp.json();
+
+                console.log('📊 Ответ сервера:', data);
+
+                if (data.ok) {
+                    // Показываем успешное сообщение
+                    alertBox.className = 'alert alert-success';
+                    alertBox.innerHTML = '<i class="bi bi-check-circle me-2"></i>Успешный вход! Перенаправляем в личный кабинет...';
+                    alertBox.classList.remove('d-none');
+
+                    // Перенаправляем в личный кабинет
+                    setTimeout(() => {
+                        window.location.href = '/dashboard/';
+                    }, 1500);
+                } else {
+                    alertBox.className = 'alert alert-danger';
+                    let errorMessage = `<i class="bi bi-exclamation-triangle me-2"></i>Ошибка: ${data.error || 'Неверный код'}`;
+
+                    // Показываем простые сообщения об ошибках
+                    if (data.error === 'code_expired') {
+                        errorMessage = '<i class="bi bi-clock me-2"></i>Время кода истекло. Получите новый код в боте.';
+                    } else if (data.error === 'invalid_code') {
+                        errorMessage = '<i class="bi bi-exclamation-triangle me-2"></i>Неверный код. Проверьте правильность ввода.';
+                    } else if (data.error === 'database_error') {
+                        errorMessage = '<i class="bi bi-exclamation-triangle me-2"></i>Ошибка сервера. Попробуйте позже.';
+                    }
+
+                    alertBox.innerHTML = errorMessage;
+                    alertBox.classList.remove('d-none');
+
+                    // Очистить поля при ошибке
+                    inputs.forEach(input => input.value = '');
+                    updateFieldStates();
+                    inputs[0].focus();
+                }
+            } catch (e) {
+                console.error('❌ Ошибка сети:', e);
+                alertBox.className = 'alert alert-danger';
+                alertBox.innerHTML = '<i class="bi bi-wifi-off me-2"></i>Сетевая ошибка. Проверьте подключение к интернету.';
+                alertBox.classList.remove('d-none');
+            } finally {
+                // Скрываем спиннер и разблокируем поля
+                spinner.classList.add('d-none');
+                inputs.forEach(input => input.disabled = false);
+                updateFieldStates();
+            }
+        }
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            submitForm();
+        });
+
+        // Фокус на первое поле при загрузке
+        inputs[0].focus();
+    });
+</script>
+{% endblock %}
+{% endblock %}
