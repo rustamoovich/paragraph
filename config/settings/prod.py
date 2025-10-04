@@ -30,18 +30,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Database (если нужно переопределить для продакшена)
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': os.getenv('DB_NAME', 'paragraph'),
-#         'CLIENT': {
-#             'host': os.getenv('DB_HOST', 'mongodb://localhost:27017/'),
-#             'username': os.getenv('DB_USER', ''),
-#             'password': os.getenv('DB_PASSWORD', ''),
-#         }
-#     }
-# }
+# Database - переопределяем для продакшена
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'paragraph',
+        'CLIENT': {
+            'host': os.getenv('DB_HOST', 'mongodb://localhost:27017/'),
+        }
+    }
+}
 
 # Logging - используем стандартное логирование Heroku
 LOGGING = {
