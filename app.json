@@ -1,0 +1,51 @@
+{
+    "name": "Paragraph",
+    "description": "AI-powered document generation platform",
+    "repository": "https://github.com/your-username/paragraph",
+    "logo": "https://via.placeholder.com/150x150/667eea/ffffff?text=P",
+    "keywords": [
+        "django",
+        "ai",
+        "documents",
+        "telegram",
+        "mongodb"
+    ],
+    "scripts": {
+        "release": "python manage.py migrate && python manage.py collectstatic --noinput"
+    },
+    "env": {
+        "DEBUG": {
+            "description": "Django debug mode",
+            "value": "False"
+        },
+        "SECRET_KEY": {
+            "description": "Django secret key",
+            "generator": "secret"
+        },
+        "ALLOWED_HOSTS": {
+            "description": "Allowed hosts for Django",
+            "value": "paragraph-9fc2a029209c.herokuapp.com"
+        }
+    },
+    "formation": {
+        "web": {
+            "quantity": 1,
+            "size": "basic"
+        },
+        "worker": {
+            "quantity": 1,
+            "size": "basic"
+        }
+    },
+    "addons": [
+        {
+            "plan": "heroku-redis:mini",
+            "as": "REDIS"
+        }
+    ],
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ]
+}
