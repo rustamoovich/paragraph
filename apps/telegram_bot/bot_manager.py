@@ -69,6 +69,42 @@ class TelegramBotManager:
         except Exception as e:
             logger.error(f"Ошибка обработки webhook update: {e}")
     
+    def start_polling(self):
+        """Запуск бота через polling (для локальной разработки)"""
+        try:
+            logger.info("Запуск бота через polling...")
+            self.updater.start_polling()
+            logger.info("Бот запущен через polling")
+        except Exception as e:
+            logger.error(f"Ошибка запуска polling: {e}")
+            raise
+    
+    def stop_polling(self):
+        """Остановка polling"""
+        try:
+            self.updater.stop()
+            logger.info("Polling остановлен")
+        except Exception as e:
+            logger.error(f"Ошибка остановки polling: {e}")
+    
+    def run_forever(self):
+        """Запуск бота в режиме polling (для Django management command)"""
+        try:
+            logger.debug("Запуск бота через polling...")
+            self.updater.start_polling()
+            logger.info("Бот запущен через polling")
+            
+            # Ожидаем остановки
+            self.updater.idle()
+            
+        except KeyboardInterrupt:
+            logger.info("Получен сигнал остановки")
+            self.updater.stop()
+        except Exception as e:
+            logger.error(f"Ошибка запуска бота: {e}")
+            self.updater.stop()
+            raise
+    
     def _delete_previous_messages(self, update: Update, context: CallbackContext):
         """Удаляет предыдущие сообщения бота и команды пользователя для данного пользователя"""
         user_id = update.effective_user.id
@@ -617,7 +653,7 @@ class TelegramBotManager:
     
     def start_polling(self):
         """Запуск бота в режиме polling"""
-        logger.info("Запуск Telegram бота в режиме polling...")
+        logger.debug("Запуск Telegram бота в режиме polling...")
         self.updater.start_polling()
         logger.info("Бот запущен и ожидает сообщения")
     

@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from .bot_manager import TelegramBotManager
+from .webhook_manager import enable_webhook
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +48,7 @@ def set_webhook(request):
     """
     try:
         webhook_url = f"https://{settings.ALLOWED_HOSTS[0]}/telegram/webhook/"
-        success = bot_manager.set_webhook(webhook_url)
+        success = enable_webhook(webhook_url)
         
         if success:
             return HttpResponse(f"Webhook установлен: {webhook_url}")

@@ -1,6 +1,7 @@
 import logging
 from django.core.management.base import BaseCommand
 from apps.telegram_bot.bot_manager import TelegramBotManager
+from apps.telegram_bot.webhook_manager import disable_webhook
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +22,19 @@ class Command(BaseCommand):
                 self.style.SUCCESS('🤖 Инициализация Telegram бота...')
             )
             
+            # Автоматически отключаем webhook для локальной разработки
+            self.stdout.write(
+                self.style.WARNING('🔄 Отключение webhook для локальной разработки...')
+            )
+            if disable_webhook():
+                self.stdout.write(
+                    self.style.SUCCESS('✅ Webhook отключен успешно')
+                )
+            else:
+                self.stdout.write(
+                    self.style.WARNING('⚠️  Не удалось отключить webhook (возможно, уже отключен)')
+                )
+            
             bot_manager = TelegramBotManager()
             
             if options['daemon']:
@@ -32,7 +46,7 @@ class Command(BaseCommand):
                 self.style.SUCCESS('✅ Бот успешно инициализирован')
             )
             self.stdout.write(
-                self.style.SUCCESS('🚀 Запуск бота...')
+                self.style.SUCCESS('🚀 Запуск бота в режиме polling...')
             )
             
             # Запускаем бота

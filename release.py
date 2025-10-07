@@ -28,6 +28,18 @@ def main():
         execute_from_command_line(['manage.py', 'collectstatic', '--noinput'])
         print("✅ Static files collected successfully")
         
+        # Включаем webhook для Telegram бота
+        print("🤖 Setting up Telegram webhook...")
+        try:
+            from apps.telegram_bot.webhook_manager import enable_webhook
+            webhook_url = f"https://{os.getenv('ALLOWED_HOSTS', '').split(',')[0]}/telegram/webhook/"
+            if enable_webhook(webhook_url):
+                print("✅ Telegram webhook enabled successfully")
+            else:
+                print("⚠️  Failed to enable Telegram webhook")
+        except Exception as e:
+            print(f"⚠️  Webhook setup failed: {e}")
+        
         print("🎉 Release phase completed successfully!")
         
     except Exception as e:
